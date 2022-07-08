@@ -1,5 +1,6 @@
 package com.revature.models;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +12,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
-
 import com.revature.util.RegexUtil;
 
 import lombok.AllArgsConstructor;
@@ -43,9 +43,6 @@ public class User {
 	@Email
 	@Column(nullable=false, unique=true)
 	private String email;
-	
-//	@OneToMany
-//	private List<Character> characters;
 	
 
 	public User(@NotBlank @Length(min = 5) @Pattern(regexp = "\"[a-zA-Z][a-zA-Z0-9]*") String username,
