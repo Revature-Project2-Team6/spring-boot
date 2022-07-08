@@ -2,15 +2,15 @@ package com.revature.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import lombok.*;
 
 /**
  * The model class representing a character in the game.
@@ -24,6 +24,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@EqualsAndHashCode(exclude = { "owner" })
+@ToString(exclude = { "owner" })
 public class Character {
 
     @Id
@@ -44,8 +47,8 @@ public class Character {
 
     // private List<Skill> skills;
 
-    @NotBlank
-    @Column(nullable = false)
+    @NotNull
+    @ManyToOne
     private User owner;
 
     public Character(String name, String imageUrl) {
