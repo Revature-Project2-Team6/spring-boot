@@ -1,10 +1,13 @@
 package com.revature.models;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -12,6 +15,8 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.revature.util.RegexUtil;
 
 import lombok.AllArgsConstructor;
@@ -43,9 +48,6 @@ public class User {
 	@Email
 	@Column(nullable=false, unique=true)
 	private String email;
-	
-//	@OneToMany
-//	private List<Character> characters;
 	
 
 	public User(@NotBlank @Length(min = 5) @Pattern(regexp = "\"[a-zA-Z][a-zA-Z0-9]*") String username,
