@@ -41,6 +41,18 @@ public class UserController {
     }
 
     /**
+     * Updates the information of a <code>User</code> stored in the database.
+     *
+     * @param The <code>User</code> object to modify
+     * @return A <code>ResponseEntity</code> object indicating whether or not the
+     *         <code>User</code> was updated successfully
+     */
+    @PutMapping("/users")
+    public ResponseEntity<User> updateUser(@Valid @RequestBody User u) {
+        return ResponseEntity.ok(this.uServ.update(u));
+    }
+
+    /**
      * Retrieves all users registered in the database.
      *
      * @return A <code>ResponseEntity</code> object containing a <code>Set</code> of
