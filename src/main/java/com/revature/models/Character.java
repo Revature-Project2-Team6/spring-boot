@@ -38,7 +38,9 @@ public class Character {
     @Column(nullable = false)
     private String name;
 
-    // private Species species;
+    @NotNull
+    @OneToOne
+    private Species species;
 
     @URL
     private String imageUrl;
