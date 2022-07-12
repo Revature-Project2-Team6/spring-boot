@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.revature.exceptions.UserNotFoundException;
 import com.revature.models.User;
 import com.revature.service.UserService;
 
@@ -71,7 +72,11 @@ public class UserController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<User> findUserById(@PathVariable("id") int id) {
-        return ResponseEntity.ok(this.uServ.getById(id));
+        try {
+            return ResponseEntity.ok(this.uServ.getById(id));
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     /**
