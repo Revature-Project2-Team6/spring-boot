@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.revature.exceptions.UserNotFoundException;
 import com.revature.models.User;
 import com.revature.service.UserService;
 
@@ -35,7 +36,7 @@ public class UserController {
      * @return A <code>ResponseEntity</code> object indicating whether or not the
      *         registration was successful
      */
-    @PostMapping("/users")
+    @PostMapping("/add")
     public ResponseEntity<User> registerUser(@Valid @RequestBody User u) {
         return ResponseEntity.ok(this.uServ.add(u));
     }
@@ -47,9 +48,14 @@ public class UserController {
      * @return A <code>ResponseEntity</code> object indicating whether or not the
      *         <code>User</code> was updated successfully
      */
-    @PutMapping("/users")
-    public ResponseEntity<User> updateUser(@Valid @RequestBody User u) {
-        return ResponseEntity.ok(this.uServ.update(u));
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable("id") int id, @Valid @RequestBody User u) {
+        try {
+            this.uServ.getById(id);
+            return ResponseEntity.ok(this.uServ.update(u));
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     /**
@@ -58,7 +64,7 @@ public class UserController {
      * @return A <code>ResponseEntity</code> object containing a <code>Set</code> of
      *         users found in the database
      */
-    @GetMapping("/users")
+    @GetMapping("/")
     public ResponseEntity<Set<User>> getAll() {
         return ResponseEntity.ok(this.uServ.findAll());
     }
@@ -69,9 +75,13 @@ public class UserController {
      * @param id The ID number of the <code>User</code> to get
      * @return A <code>ResponseEntity</code> object
      */
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<User> findUserById(@PathVariable("id") int id) {
-        return ResponseEntity.ok(this.uServ.getById(id));
+        try {
+            return ResponseEntity.ok(this.uServ.getById(id));
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     /**
