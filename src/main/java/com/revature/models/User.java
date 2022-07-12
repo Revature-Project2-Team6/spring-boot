@@ -29,8 +29,7 @@ public class User {
 	private int id;
 	
 	@NotBlank
-	@Length(min=5)
-	@Pattern(regexp="\"[a-zA-Z][a-zA-Z0-9]*")
+	@Length(min=7)
 	@Column(nullable=false, unique=true)
 	private String username;
 	
