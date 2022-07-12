@@ -35,7 +35,7 @@ public class UserController {
      * @return A <code>ResponseEntity</code> object indicating whether or not the
      *         registration was successful
      */
-    @PostMapping("/users")
+    @PostMapping("/")
     public ResponseEntity<User> registerUser(@Valid @RequestBody User u) {
         return ResponseEntity.ok(this.uServ.add(u));
     }
@@ -47,7 +47,7 @@ public class UserController {
      * @return A <code>ResponseEntity</code> object indicating whether or not the
      *         <code>User</code> was updated successfully
      */
-    @PutMapping("/users")
+    @PutMapping("/")
     public ResponseEntity<User> updateUser(@Valid @RequestBody User u) {
         return ResponseEntity.ok(this.uServ.update(u));
     }
@@ -58,7 +58,7 @@ public class UserController {
      * @return A <code>ResponseEntity</code> object containing a <code>Set</code> of
      *         users found in the database
      */
-    @GetMapping("/users")
+    @GetMapping("/")
     public ResponseEntity<Set<User>> getAll() {
         return ResponseEntity.ok(this.uServ.findAll());
     }
@@ -69,7 +69,7 @@ public class UserController {
      * @param id The ID number of the <code>User</code> to get
      * @return A <code>ResponseEntity</code> object
      */
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<User> findUserById(@PathVariable("id") int id) {
         return ResponseEntity.ok(this.uServ.getById(id));
     }
