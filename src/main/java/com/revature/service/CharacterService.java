@@ -70,4 +70,9 @@ public class CharacterService {
 	public void remove(int id) {
 		charRepo.deleteById(id);
 	}
+	
+	@Transactional(propagation = Propagation.REQUIRED)
+	public Character update(Character c) {
+		return charRepo.save(c);
+	}
 }
