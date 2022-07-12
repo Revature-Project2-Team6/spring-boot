@@ -36,7 +36,7 @@ public class UserController {
      * @return A <code>ResponseEntity</code> object indicating whether or not the
      *         registration was successful
      */
-    @PostMapping("/")
+    @PostMapping("/add")
     public ResponseEntity<User> registerUser(@Valid @RequestBody User u) {
         return ResponseEntity.ok(this.uServ.add(u));
     }
@@ -48,9 +48,14 @@ public class UserController {
      * @return A <code>ResponseEntity</code> object indicating whether or not the
      *         <code>User</code> was updated successfully
      */
-    @PutMapping("/")
-    public ResponseEntity<User> updateUser(@Valid @RequestBody User u) {
-        return ResponseEntity.ok(this.uServ.update(u));
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable("id") int id, @Valid @RequestBody User u) {
+        try {
+            this.uServ.getById(id);
+            return ResponseEntity.ok(this.uServ.update(u));
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     /**
