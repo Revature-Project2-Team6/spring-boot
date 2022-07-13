@@ -29,7 +29,7 @@ public class User {
 	private int id;
 	
 	@NotBlank
-	@Length(min=7)
+	@Length(min=3)
 	@Column(nullable=false, unique=true)
 	private String username;
 	
