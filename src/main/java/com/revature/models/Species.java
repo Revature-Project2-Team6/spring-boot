@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class Species {
 	
 	@Id
-	@Column(name="species_id")
+	@Column(name="id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	

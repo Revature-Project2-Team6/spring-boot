@@ -50,7 +50,7 @@ public class Character {
     // private List<Skill> skills;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne()
     private User owner;
 
     public Character(String name, String imageUrl) {

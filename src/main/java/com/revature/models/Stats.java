@@ -27,6 +27,12 @@ public class Stats {
 	@Column(name="lvl")
 	private int level;
 	
+	@Column(name="exp")
+	private int experience;
+	
+	@Column(name="health")
+	private int health;
+	
 	@Column(name="str")
 	private int strength;
 	
