@@ -36,7 +36,8 @@ public class AuthController {
             String token = this.tokenManager.issueToken(user);
 
             response.addHeader("auth-token", token);
-            response.addHeader("Access-Control-Expose-Headers", "auth-token");
+            response.addHeader("user-id", Integer.toString(user.getId()));
+            response.addHeader("Access-Control-Expose-Headers", "auth-token, user-id");
             response.setStatus(200);
         } catch (AuthenticationException e) {
             response.setStatus(401);
