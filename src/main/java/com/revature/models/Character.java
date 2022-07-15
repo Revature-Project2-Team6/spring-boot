@@ -39,13 +39,14 @@ public class Character {
     private String name;
 
     @NotNull
-    @OneToOne
+    @ManyToOne
     private Species species;
 
-    @URL
     private String imageUrl;
 
-    // private Stats stats;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="stats_id", referencedColumnName = "id")
+    private Stats stats;
 
     // private List<Skill> skills;
 
@@ -53,6 +54,7 @@ public class Character {
     @ManyToOne()
     private User owner;
 
+    
     public Character(String name, String imageUrl) {
         this.name = name;
         // this.species = species;
