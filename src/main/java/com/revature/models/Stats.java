@@ -40,7 +40,7 @@ public class Stats {
 	private int defense;
 	
 	@Column(name = "dex")
-	private int dextarity;
+	private int dexterity;
 	
 	@Column(name = "fp")
 	private int forcePower;
