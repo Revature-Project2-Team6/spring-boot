@@ -30,26 +30,19 @@ public class UserService {
 	
 	public User authenticate(Credentials creds) {
 
-		User userInDb = userRepo.findUserByUsernameAndPassword(creds.getUsername(), creds.getPassword())
+		return userRepo.findUserByUsernameAndPassword(creds.getUsername(), creds.getPassword())
 				.orElseThrow(AuthenticationException::new);
-
-		return userInDb;
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public User add(User u) {
 		
-		// needs character
-		/*if (u.getCharacters() != null) {
-			u.getCharacters().forEach(address -> addressRepo.save(address));
-		}*/
 		return userRepo.save(u);
 	}
 	
 	@Transactional(readOnly = true)
 	public Set<User> findAll() {
-		// here we are using the stream API to transform the List to a Set to avoid
-		// duplicates
+		// here we are using the stream API to transform the List to a Set to avoid duplicates
 		return userRepo.findAll().stream().collect(Collectors.toSet());
 	}
 	

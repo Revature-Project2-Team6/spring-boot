@@ -83,13 +83,4 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-
-    /**
-     * Starts or continues the game for the logged-in user.
-     */
-    // @GetMapping("/play")
-    // public void playGame() {
-    // // TODO implement method
-    // }
-
 }

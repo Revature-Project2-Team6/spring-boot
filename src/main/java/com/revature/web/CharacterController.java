@@ -61,7 +61,7 @@ public class CharacterController {
 	
 	// update the character
 	@PutMapping("/update")
-	public ResponseEntity updateCharacter(@Valid @RequestBody Character c) {
+	public ResponseEntity<Character> updateCharacter(@Valid @RequestBody Character c) {
 		return ResponseEntity.ok(cserv.update(c));
 	}
 }
