@@ -2,10 +2,11 @@ package com.revature.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -16,7 +17,6 @@ import java.util.Set;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -27,6 +27,7 @@ import com.google.gson.Gson;
 import com.revature.data.UserRepository;
 import com.revature.dto.Credentials;
 import com.revature.exceptions.AuthenticationException;
+import com.revature.exceptions.UserNotFoundException;
 import com.revature.models.User;
 
 
@@ -125,9 +126,12 @@ class UserServiceTest {
     }
 
     @Test
-    @Disabled("Not yet implemented")
     void testGetByUsername_Failure_UnknownUsername() {
-        fail("Not yet implemented");
+        String username = this.dummyUser.getUsername();
+        given(this.mockUserRepo.findByUsername(username)).willReturn(Optional.empty());
+
+        assertThrows(UserNotFoundException.class, () -> this.uServ.getByUsername(username));
+        verify(this.mockUserRepo, times(1)).findByUsername(username);
     }
 
     @Test
@@ -143,15 +147,19 @@ class UserServiceTest {
     }
 
     @Test
-    @Disabled("Not yet implemented")
     void testGetById_Success_IdLessThanZero() {
-        fail("Not yet implemented");
+        int id = -1;
+        assertNull(this.uServ.getById(id));
+        verify(this.mockUserRepo, never()).findById(id);
     }
 
     @Test
-    @Disabled("Not yet implemented")
     void testGetById_Failure_UnknownId() {
-        fail("Not yet implemented");
+        int id = this.dummyUser.getId();
+        given(this.mockUserRepo.findById(id)).willReturn(Optional.empty());
+
+        assertThrows(UserNotFoundException.class, () -> this.uServ.getById(id));
+        verify(this.mockUserRepo, times(1)).findById(id);
     }
 
     @Test
