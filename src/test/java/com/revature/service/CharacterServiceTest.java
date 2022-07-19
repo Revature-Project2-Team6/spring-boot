@@ -2,9 +2,11 @@ package com.revature.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -15,7 +17,6 @@ import java.util.Set;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,6 +25,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.google.gson.Gson;
 import com.revature.data.CharacterRepository;
+import com.revature.exceptions.CharacterNotFoundException;
 import com.revature.models.Character;
 import com.revature.models.Species;
 import com.revature.models.User;
@@ -121,9 +123,14 @@ class CharacterServiceTest {
     }
 
     @Test
-    @Disabled("Not yet implemented")
     void testFindByOwnerId_Failure_UnknownId() {
-        fail("Not yet implemented");
+        int id = this.dummyUser.getId();
+        given(this.mockCharRepo.findByOwnerId(id)).willReturn(new ArrayList<Character>());
+
+        Set<Character> actual = this.cServ.findByOwnerId(id);
+
+        assertEquals(0, actual.size());
+        verify(this.mockCharRepo, times(1)).findByOwnerId(id);
     }
 
     @Test
@@ -155,9 +162,12 @@ class CharacterServiceTest {
     }
 
     @Test
-    @Disabled("Not yet implemented")
     void testFindByName_Failure_UnknownName() {
-        fail("Not yet implemented");
+        String name = "Anonymous";
+        given(this.mockCharRepo.findByName(name)).willThrow(new CharacterNotFoundException());
+
+        assertThrows(CharacterNotFoundException.class, () -> this.cServ.findByName(name));
+        verify(this.mockCharRepo, times(1)).findByName(name);
     }
 
     @Test
@@ -178,9 +188,14 @@ class CharacterServiceTest {
     }
 
     @Test
-    @Disabled("Not yet implemented")
     void testFindBySpeciesId_Failure_UnknownSpeciesId() {
-        fail("Not yet implemented");
+        int id = 2;  // Assume a Species record with this ID doesn't exist in DB
+        given(this.mockCharRepo.findBySpeciesId(id)).willReturn(new ArrayList<Character>());
+
+        List<Character> actual = this.cServ.findBySpeciesId(id);
+
+        assertEquals(0, actual.size());
+        verify(this.mockCharRepo, times(1)).findBySpeciesId(id);
     }
 
     @Test
@@ -197,9 +212,19 @@ class CharacterServiceTest {
     }
 
     @Test
-    @Disabled("Not yet implemented")
+    void testGetById_Success_IdLessThanZero() {
+        int id = -1;
+        assertNull(this.cServ.getById(id));
+        verify(this.mockCharRepo, never()).findById(id);
+    }
+
+    @Test
     void testGetById_Failure_UnknownId() {
-        fail("Not yet implemented");
+        int id = this.dummyCharacter.getId();
+        given(this.mockCharRepo.findById(id)).willReturn(Optional.empty());
+
+        assertThrows(CharacterNotFoundException.class, () -> this.cServ.getById(id));
+        verify(this.mockCharRepo, times(1)).findById(id);
     }
 
     @Test
