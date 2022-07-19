@@ -30,7 +30,6 @@ public class SpeciesController {
 	
 	@PostMapping
 	public ResponseEntity<Species> registerSpecies(@Valid @RequestBody Species s) {
-		System.out.println("In the registerSPecies");
 		return ResponseEntity.ok(this.sServ.add(s));
 	}
 	

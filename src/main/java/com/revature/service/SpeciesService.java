@@ -39,8 +39,8 @@ public class SpeciesService {
 	@Transactional(readOnly = true)
 	public Species findbyName(String name) {
 
-		if (name == "") {
-			log.warn("Name can not be empty. Name passed: ", name);
+		if (name.equals("")) {
+			log.warn("Name can not be empty. Name passed: {0}", name);
 			return null;
 		} else {
 			return speciesRepo.findBySpeciesName(name).orElseThrow(SpeciesNotFoundException::new);		}
