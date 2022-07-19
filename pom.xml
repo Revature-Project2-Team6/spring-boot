@@ -107,12 +107,11 @@
       <version>2.9.0</version>
       <scope>test</scope>
     </dependency>
-  </dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
-	</dependencies>
+  <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter</artifactId>
+  </dependency>
+</dependencies>
 
   <build>
     <finalName>${project.artifactId}</finalName>
