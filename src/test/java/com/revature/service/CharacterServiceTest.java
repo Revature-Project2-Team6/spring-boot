@@ -25,6 +25,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.google.gson.Gson;
 import com.revature.data.CharacterRepository;
 import com.revature.models.Character;
+import com.revature.models.Species;
 import com.revature.models.User;
 
 
@@ -36,6 +37,7 @@ class CharacterServiceTest {
 
     @InjectMocks
     private CharacterService cServ;
+
     private Character dummyCharacter;
     private User dummyUser;
 
@@ -52,8 +54,8 @@ class CharacterServiceTest {
     }
 
     /**
-     * Clones a <code>Character</code> object using <code>Gson</code> serialization and
-     * deserialization.
+     * Clones a <code>Character</code> object using <code>Gson</code> serialization
+     * and deserialization.
      *
      * @param c the <code>Character</code> instance to clone
      * @return a deep copy of <code>c</code>
@@ -71,6 +73,7 @@ class CharacterServiceTest {
         given(this.mockCharRepo.save(this.dummyCharacter)).willReturn(expected);
 
         Character actual = this.cServ.addCharacter(this.dummyCharacter);
+
         assertEquals(expected, actual);
         verify(this.mockCharRepo, times(1)).save(this.dummyCharacter);
     }
@@ -85,23 +88,36 @@ class CharacterServiceTest {
         given(this.mockCharRepo.findAll()).willReturn(expected);
 
         Set<Character> actual = this.cServ.findAll();
+
         assertEquals(expected.size(), actual.size());
         verify(this.mockCharRepo, times(1)).findAll();
-
-        // GC the 2nd dummy user
-        user2 = null;
     }
 
     @Test
-    @Disabled("Not yet implemented")
     void testFindByOwnerId_Success() {
-        fail("Not yet implemented");
+        int id = this.dummyUser.getId();
+
+        List<Character> expected = new ArrayList<>();
+        expected.add(this.dummyCharacter);
+        expected.add(new Character(2, "Not Han Solo", null, null, null, this.dummyUser));
+        given(this.mockCharRepo.findByOwnerId(id)).willReturn(expected);
+
+        Set<Character> actual = this.cServ.findByOwnerId(id);
+
+        assertEquals(expected.size(), actual.size());
+        verify(this.mockCharRepo, times(1)).findByOwnerId(id);
     }
 
     @Test
-    @Disabled("Not yet implemented")
     void testFindByOwnerId_Success_NoCharacters() {
-        fail("Not yet implemented");
+        int id = this.dummyUser.getId();
+        List<Character> expected = new ArrayList<>();
+        given(this.mockCharRepo.findByOwnerId(id)).willReturn(expected);
+
+        Set<Character> actual = this.cServ.findByOwnerId(id);
+
+        assertEquals(0, actual.size());
+        verify(this.mockCharRepo, times(1)).findByOwnerId(id);
     }
 
     @Test
@@ -111,15 +127,31 @@ class CharacterServiceTest {
     }
 
     @Test
-    @Disabled("Not yet implemented")
     void testFindByName_Success() {
-        fail("Not yet implemented");
+        String name = this.dummyCharacter.getName();
+        List<Character> expected = new ArrayList<>();
+        expected.add(this.dummyCharacter);
+        given(this.mockCharRepo.findByName(name)).willReturn(expected);
+
+        Character actual = this.cServ.findByName(name);
+
+        assertEquals(expected, actual);
+        verify(this.mockCharRepo, times(1)).findByName(name);
     }
 
     @Test
-    @Disabled("Not yet implemented")
     void testFindByName_Success_Multiple() {
-        fail("Not yet implemented");
+        String name = this.dummyCharacter.getName();
+
+        List<Character> expected = new ArrayList<>();
+        expected.add(this.dummyCharacter);
+        expected.add(new Character(2, name, null, null, null, this.dummyUser));
+        given(this.mockCharRepo.findByName(name)).willReturn(expected);
+
+        Character actual = this.cServ.findByName(name);
+
+        assertEquals(expected.get(0), actual);
+        verify(this.mockCharRepo, times(1)).findByName(name);
     }
 
     @Test
@@ -129,9 +161,20 @@ class CharacterServiceTest {
     }
 
     @Test
-    @Disabled("Not yet implemented")
     void testFindBySpeciesId_Success() {
-        fail("Not yet implemented");
+        int id = 100;
+        Species dummySpecies = new Species(id, "human", "A dummy species");
+        this.dummyCharacter.setSpecies(dummySpecies);
+
+        List<Character> expected = new ArrayList<>();
+        expected.add(this.dummyCharacter);
+        expected.add(new Character(24, "Not Han Solo", dummySpecies, null, null, this.dummyUser));
+        given(this.mockCharRepo.findBySpeciesId(dummySpecies.getId())).willReturn(expected);
+
+        List<Character> actual = this.cServ.findBySpeciesId(id);
+
+        assertEquals(expected.size(), actual.size());
+        verify(this.mockCharRepo, times(1)).findBySpeciesId(id);
     }
 
     @Test
@@ -147,6 +190,7 @@ class CharacterServiceTest {
 
         Character expected = this.dummyCharacter;
         Character actual = this.cServ.getById(id);
+
         assertEquals(expected, actual);
         assertEquals(id, actual.getId());
         verify(this.mockCharRepo, times(1)).findById(id);
