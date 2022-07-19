@@ -22,7 +22,7 @@ public class Stats {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
-	private int stat_id;
+	private int statId;
 	
 	@Column(name="lvl")
 	private int level;

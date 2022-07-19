@@ -57,7 +57,6 @@ public class Character {
     
     public Character(String name, String imageUrl) {
         this.name = name;
-        // this.species = species;
         this.imageUrl = imageUrl;
     }
 
