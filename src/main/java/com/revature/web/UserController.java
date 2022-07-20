@@ -11,6 +11,7 @@ import com.revature.exceptions.UserNotFoundException;
 import com.revature.models.User;
 import com.revature.service.UserService;
 
+
 /**
  * Controller class for <code>User</code>-related actions.
  *
@@ -32,7 +33,8 @@ public class UserController {
     /**
      * Registers a user into the database.
      *
-     * @param u The <code>User</code> object to register
+     * @param u
+     *        The <code>User</code> object to register
      * @return A <code>ResponseEntity</code> object indicating whether or not the
      *         registration was successful
      */
@@ -44,7 +46,8 @@ public class UserController {
     /**
      * Updates the information of a <code>User</code> stored in the database.
      *
-     * @param The <code>User</code> object to modify
+     * @param The
+     *        <code>User</code> object to modify
      * @return A <code>ResponseEntity</code> object indicating whether or not the
      *         <code>User</code> was updated successfully
      */
@@ -72,7 +75,8 @@ public class UserController {
     /**
      * Fetches a specific user based on their ID.
      *
-     * @param id The ID number of the <code>User</code> to get
+     * @param id
+     *        The ID number of the <code>User</code> to get
      * @return A <code>ResponseEntity</code> object
      */
     @GetMapping("/{id}")
@@ -83,4 +87,5 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+
 }

@@ -15,6 +15,7 @@ import com.revature.models.User;
 import com.revature.service.UserService;
 import com.revature.util.JwtTokenManager;
 
+
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/login")

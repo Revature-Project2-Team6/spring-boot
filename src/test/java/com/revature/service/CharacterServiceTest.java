@@ -60,7 +60,8 @@ class CharacterServiceTest {
      * Clones a <code>Character</code> object using <code>Gson</code> serialization
      * and deserialization.
      *
-     * @param c the <code>Character</code> instance to clone
+     * @param c
+     *        the <code>Character</code> instance to clone
      * @return a deep copy of <code>c</code>
      * @see <a href=
      *      "https://www.baeldung.com/java-deep-copy#2-json-serialization-with-gson">https://www.baeldung.com/java-deep-copy#2-json-serialization-with-gson</a>
@@ -192,7 +193,7 @@ class CharacterServiceTest {
 
     @Test
     void testFindBySpeciesId_Failure_UnknownSpeciesId() {
-        int id = 2;  // Assume a Species record with this ID doesn't exist in DB
+        int id = 2; // Assume a Species record with this ID doesn't exist in DB
         given(this.mockCharRepo.findBySpeciesId(id)).willReturn(new ArrayList<Character>());
 
         List<Character> actual = this.cServ.findBySpeciesId(id);

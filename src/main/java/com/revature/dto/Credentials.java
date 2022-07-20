@@ -11,22 +11,22 @@ import lombok.NoArgsConstructor;
 
 
 /**
- * waht is a dto? data transfer object design pattern 
- * 
+ * waht is a dto? data transfer object design pattern
+ *
  *
  */
-@Data 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Credentials { // use in our controller layer 
+public class Credentials { // use in our controller layer
 
-	@NotNull
-	@NotBlank
-	@Length(min=2)
-	private String username;
-	
-	@NotNull
-	@NotBlank
-	private String password; 
-	
+    @NotNull
+    @NotBlank
+    @Length(min = 2)
+    private String username;
+
+    @NotNull
+    @NotBlank
+    private String password;
+
 }

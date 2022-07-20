@@ -53,7 +53,8 @@ class SpeciesServiceTest {
      * Clones a <code>Character</code> object using <code>Gson</code> serialization
      * and deserialization.
      *
-     * @param c the <code>Character</code> instance to clone
+     * @param c
+     *        the <code>Character</code> instance to clone
      * @return a deep copy of <code>c</code>
      * @see <a href=
      *      "https://www.baeldung.com/java-deep-copy#2-json-serialization-with-gson">https://www.baeldung.com/java-deep-copy#2-json-serialization-with-gson</a>
