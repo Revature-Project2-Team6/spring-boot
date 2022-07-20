@@ -3,6 +3,7 @@ package com.revature.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -83,6 +84,7 @@ class SpeciesServiceTest {
 
         Set<Species> actual = this.sServ.findAll();
         assertEquals(expected.size(), actual.size());
+        assertTrue(expected.containsAll(actual));
         verify(this.mockSpeciesRepo, times(1)).findAll();
     }
 

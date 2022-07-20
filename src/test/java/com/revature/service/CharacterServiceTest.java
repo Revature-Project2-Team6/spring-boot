@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
 import static org.mockito.Mockito.never;
@@ -92,6 +93,7 @@ class CharacterServiceTest {
         Set<Character> actual = this.cServ.findAll();
 
         assertEquals(expected.size(), actual.size());
+        assertTrue(expected.containsAll(actual));
         verify(this.mockCharRepo, times(1)).findAll();
     }
 
@@ -107,6 +109,7 @@ class CharacterServiceTest {
         Set<Character> actual = this.cServ.findByOwnerId(id);
 
         assertEquals(expected.size(), actual.size());
+        assertTrue(expected.containsAll(actual));
         verify(this.mockCharRepo, times(1)).findByOwnerId(id);
     }
 
@@ -142,8 +145,8 @@ class CharacterServiceTest {
 
         Character actual = this.cServ.findByName(name);
 
-        assertEquals(expectedList.get(0), actual);
         verify(this.mockCharRepo, times(1)).findByName(name);
+        assertEquals(expectedList.get(0), actual);
     }
 
     @Test
