@@ -136,13 +136,13 @@ class CharacterServiceTest {
     @Test
     void testFindByName_Success() {
         String name = this.dummyCharacter.getName();
-        List<Character> expected = new ArrayList<>();
-        expected.add(this.dummyCharacter);
-        given(this.mockCharRepo.findByName(name)).willReturn(expected);
+        List<Character> expectedList = new ArrayList<>();
+        expectedList.add(this.dummyCharacter);
+        given(this.mockCharRepo.findByName(name)).willReturn(expectedList);
 
         Character actual = this.cServ.findByName(name);
 
-        assertEquals(expected, actual);
+        assertEquals(expectedList.get(0), actual);
         verify(this.mockCharRepo, times(1)).findByName(name);
     }
 
