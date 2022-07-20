@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
 import static org.mockito.Mockito.never;
@@ -74,6 +75,7 @@ class UserServiceTest {
         given(this.mockUserRepo.findUserByUsernameAndPassword(username, password)).willReturn(Optional.of(expected));
 
         User actual = this.uServ.authenticate(new Credentials(username, password));
+
         assertEquals(expected, actual);
         verify(this.mockUserRepo, times(1)).findUserByUsernameAndPassword(username, password);
     }
@@ -96,6 +98,7 @@ class UserServiceTest {
         given(this.mockUserRepo.save(this.dummyUser)).willReturn(expected);
 
         User actual = this.uServ.add(this.dummyUser);
+
         assertEquals(expected, actual);
         verify(this.mockUserRepo, times(1)).save(this.dummyUser);
     }
@@ -109,7 +112,9 @@ class UserServiceTest {
         given(this.mockUserRepo.findAll()).willReturn(expected);
 
         Set<User> actual = this.uServ.findAll();
+
         assertEquals(expected.size(), actual.size());
+        assertTrue(expected.containsAll(actual));
         verify(this.mockUserRepo, times(1)).findAll();
     }
 
@@ -120,6 +125,7 @@ class UserServiceTest {
 
         User expected = this.dummyUser;
         User actual = this.uServ.getByUsername(username);
+
         assertEquals(expected, actual);
         assertEquals(username, actual.getUsername());
         verify(this.mockUserRepo, times(1)).findByUsername(username);
@@ -141,6 +147,7 @@ class UserServiceTest {
 
         User expected = this.dummyUser;
         User actual = this.uServ.getById(id);
+
         assertEquals(expected, actual);
         assertEquals(id, actual.getId());
         verify(this.mockUserRepo, times(1)).findById(id);
