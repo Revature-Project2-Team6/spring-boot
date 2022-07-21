@@ -57,7 +57,8 @@ class UserServiceTest {
      * Clones a <code>User</code> object using <code>Gson</code> serialization and
      * deserialization.
      *
-     * @param u the <code>User</code> instance to clone
+     * @param u
+     *        the <code>User</code> instance to clone
      * @return a deep copy of <code>u</code>
      * @see <a href=
      *      "https://www.baeldung.com/java-deep-copy#2-json-serialization-with-gson">https://www.baeldung.com/java-deep-copy#2-json-serialization-with-gson</a>

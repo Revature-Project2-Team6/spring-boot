@@ -13,37 +13,38 @@ import com.revature.data.SpeciesRepository;
 import com.revature.exceptions.SpeciesNotFoundException;
 import com.revature.models.Species;
 
+
 @Service
 public class SpeciesService {
-	
-	private Logger log = LoggerFactory.getLogger(this.getClass());
-	private SpeciesRepository speciesRepo;
-	
-	public SpeciesService(SpeciesRepository speciesRepo) {
-		super();
-		this.speciesRepo = speciesRepo;
-	}
-	
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public Species add(Species s) {
-	
-		return speciesRepo.save(s);
-	}
-	
-	@Transactional(readOnly = true)
-	public Set<Species> findAll() {
 
-		return speciesRepo.findAll().stream().collect(Collectors.toSet());
-	}
-	
-	@Transactional(readOnly = true)
-	public Species findbyName(String name) {
+    private Logger log = LoggerFactory.getLogger(this.getClass());
+    private SpeciesRepository speciesRepo;
 
-		if (name.equals("")) {
-			log.warn("Name can not be empty. Name passed: {0}", name);
-			return null;
-		} else {
-			return speciesRepo.findBySpeciesName(name).orElseThrow(SpeciesNotFoundException::new);		}
-	}
+    public SpeciesService(SpeciesRepository speciesRepo) {
+        super();
+        this.speciesRepo = speciesRepo;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public Species add(Species s) {
+
+        return this.speciesRepo.save(s);
+    }
+
+    @Transactional(readOnly = true)
+    public Set<Species> findAll() {
+
+        return this.speciesRepo.findAll().stream().collect(Collectors.toSet());
+    }
+
+    @Transactional(readOnly = true)
+    public Species findbyName(String name) {
+
+        if (name.equals("")) {
+            this.log.warn("Name can not be empty. Name passed: {0}", name);
+            return null;
+        }
+        return this.speciesRepo.findBySpeciesName(name).orElseThrow(SpeciesNotFoundException::new);
+    }
 
 }
